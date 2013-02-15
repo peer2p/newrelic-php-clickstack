@@ -47,7 +47,7 @@ publish_url = s3://$(publish_bucket)/$(publish_repo)/
 # or other dependencies used by the plugin. Otherwise this value may be
 # left blank.
 
-deps = lib/newrelic-php-3.1.5.137.zip
+deps = lib/newrelic-php-3.2.5.143.zip
 
 # == pkg_files (required)
 #
