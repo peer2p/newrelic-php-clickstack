@@ -57,7 +57,7 @@ deps = lib/newrelic-php-3.2.5.143.zip
 # Directories that are specified in pkg_files are always copied recursively
 # in their entirety.
 
-pkg_files = README LICENSE setup functions lib
+pkg_files = README.md LICENSE setup functions lib
 
 # = Core makefile support
 #
