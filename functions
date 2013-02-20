@@ -3,12 +3,13 @@
 . "$genapp_functions/core"
 
 create_skeleton() {
-	mkdir -pm 750 "$app_dir/plugins/newrelic"
+    mkdir -pm 750 "$app_dir/plugins/newrelic"
 }
 
 install_newrelic() {
     echo "Installing NewRelic"
-    unzip -q "$plugin_dir/lib/newrelic-php-3.2.5.143.zip" -d "$app_dir/plugins/newrelic"
+    unzip -q "$plugin_dir/lib/newrelic-php-3.2.5.143.zip" \
+          -d "$app_dir/plugins/newrelic"
 
     echo "Rewriting NewRelic permissions"
     chmod -R g-w,o-rwx "$app_dir/plugins/newrelic"
@@ -18,7 +19,8 @@ configure_newrelic() {
     echo "Configuring NewRelic"
 
     mkdir -m 770 "$log_dir/newrelic"
-    ln -s "$app_dir/plugins/newrelic/newrelic.so" "$app_dir/lib/php/modules/newrelic.so"
+    ln -s "$app_dir/plugins/newrelic/newrelic.so" \
+          "$app_dir/lib/php/modules/newrelic.so"
 
     _phpini="$app_dir/conf/php.ini"
     _appid="$(metadata newrelic_appid)"
@@ -29,9 +31,14 @@ configure_newrelic() {
     echo "newrelic.enabled = true" >> "$_phpini"
     echo "newrelic.license = \"$_license\"" >> "$_phpini"
     echo "newrelic.appname = \"$_appid\"" >> "$_phpini"
-    echo "newrelic.daemon.port = \"$app_dir/tmp/newrelic.sock\"" >> "$_phpini"
-    echo "newrelic.daemon.pidfile = \"$app_dir/tmp/newrelic.pid\"" >> "$_phpini"
-    echo "newrelic.logfile = \"$log_dir/newrelic/newrelic-php-agent.log\"" >> "$_phpini"
-    echo "newrelic.daemon.logfile = \"$log_dir/newrelic/newrelic-daemon.log\"" >> "$_phpini"
-    echo "newrelic.daemon.location = \"$app_dir/plugins/newrelic/newrelic-daemon\"" >> "$_phpini"
+    echo "newrelic.daemon.port = \"$app_dir/tmp/newrelic.sock\"" \
+         >> "$_phpini"
+    echo "newrelic.daemon.pidfile = \"$app_dir/tmp/newrelic.pid\"" \
+         >> "$_phpini"
+    echo "newrelic.logfile = \"$log_dir/newrelic/newrelic-php-agent.log\"" \
+         >> "$_phpini"
+    echo "newrelic.daemon.logfile = \"$log_dir/newrelic/newrelic-daemon.log\"" \
+         >> "$_phpini"
+    echo "newrelic.daemon.location = \"$app_dir/plugins/newrelic/newrelic-daemon\"" \
+         >> "$_phpini"
 }
