@@ -1,7 +1,4 @@
-#!/bin/bash
-
-set -u
-set -e
+#!/bin/bash -eu
 
 . "$plugin_dir/functions"
 
