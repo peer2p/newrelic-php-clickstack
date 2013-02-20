@@ -23,22 +23,20 @@ configure_newrelic() {
           "$app_dir/lib/php/modules/newrelic.so"
 
     _phpini="$app_dir/conf/php.ini"
-    _appid="$(metadata newrelic_appid)"
+    _appname="$(metadata newrelic_appid)"
     _license="$(metadata newrelic_license)"
 
-    echo -e "\n;;; NewRelic Configuration" >> "$_phpini"
-    echo "extension = newrelic.so" >> "$_phpini"
-    echo "newrelic.enabled = true" >> "$_phpini"
-    echo "newrelic.license = \"$_license\"" >> "$_phpini"
-    echo "newrelic.appname = \"$_appid\"" >> "$_phpini"
-    echo "newrelic.daemon.port = \"$app_dir/tmp/newrelic.sock\"" \
-         >> "$_phpini"
-    echo "newrelic.daemon.pidfile = \"$app_dir/tmp/newrelic.pid\"" \
-         >> "$_phpini"
-    echo "newrelic.logfile = \"$log_dir/newrelic/newrelic-php-agent.log\"" \
-         >> "$_phpini"
-    echo "newrelic.daemon.logfile = \"$log_dir/newrelic/newrelic-daemon.log\"" \
-         >> "$_phpini"
-    echo "newrelic.daemon.location = \"$app_dir/plugins/newrelic/newrelic-daemon\"" \
-         >> "$_phpini"
+    cat >> $_phpini <<EOF
+
+;;; NewRelic Configuration
+extension = newrelic.so
+newrelic.enabled = true
+newrelic.license = "$_license"
+newrelic.appname = "$_appname"
+newrelic.daemon.port = "$app_dir/tmp/newrelic.sock"
+newrelic.daemon.pidfile = "$app_dir/tmp/newrelic.pid"
+newrelic.logfile = "$log_dir/newrelic/newrelic-php-agent.log"
+newrelic.daemon.logfile = "$log_dir/newrelic/newrelic-daemon.log"
+newrelic.daemon.location = "$app_dir/plugins/newrelic/newrelic-daemon"
+EOF
 }
