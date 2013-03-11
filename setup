@@ -2,6 +2,8 @@
 
 . "$plugin_dir/functions"
 
-create_skeleton
-install_newrelic
-configure_newrelic
+if [ -e $app_dir/conf/php.ini ]; then
+	create_skeleton
+	install_newrelic
+	configure_newrelic
+fi
