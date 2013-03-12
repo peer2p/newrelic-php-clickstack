@@ -3,12 +3,13 @@
 . "$genapp_functions/core"
 
 create_skeleton() {
+    echo "Creating NewRelic directory"
     mkdir -pm 750 "$app_dir/plugins/newrelic"
 }
 
 install_newrelic() {
     echo "Installing NewRelic"
-    unzip -q "$plugin_dir/lib/newrelic-php-3.2.5.143.zip" \
+    unzip -q "$plugin_dir/lib/newrelic-php.zip" \
           -d "$app_dir/plugins/newrelic"
 
     echo "Rewriting NewRelic permissions"
@@ -26,7 +27,7 @@ configure_newrelic() {
     _appname="$(metadata newrelic_appid)"
     _license="$(metadata newrelic_license)"
 
-    cat >> $_phpini <<EOF
+    cat >> "$_phpini" <<EOF
 
 ;;; NewRelic Configuration
 extension = newrelic.so
